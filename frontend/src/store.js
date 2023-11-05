@@ -8,7 +8,6 @@ const reducer = {
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
 };
-
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
@@ -20,9 +19,9 @@ const initialState = {
 const middleware = [thunk];
 
 const store = configureStore({
-  reducer,
-  initialState,
-  middleware,
+  reducer: reducer,
+  preloadedState: initialState,
+  middleware: middleware,
 });
 
 export default store;
