@@ -1,80 +1,125 @@
 import React, { useEffect, useState } from "react";
 import MainScreen from "../../components/MainScreen";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
-import axios from "axios";
 
-const MyNotes = () => {
-  const [notes, setNotes] = useState([]);
+import { useDispatch, useSelector } from "react-redux";
+import { deleteNoteAction, listNotes } from "../../actions/notesActions";
+import Loading from "../../components/Loading";
+import ErrorMessage from "../../components/ErrorMessage";
+
+const MyNotes = ({ search }) => {
+  const dispatch = useDispatch();
+
+  const noteList = useSelector((state) => state.noteList);
+  const { loading, notes, error } = noteList;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const noteCreate = useSelector((state) => state.noteCreate);
+  const { success: successCreate } = noteCreate;
+
+  const noteUpdate = useSelector((state) => state.noteUpdate);
+  const { success: successUpdate } = noteUpdate;
+
+  const noteDelete = useSelector((state) => state.noteDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = noteDelete;
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
+      dispatch(deleteNoteAction(id));
     }
   };
 
-  const fetchNotes = async () => {
-    const { data } = await axios.get("/api/notes");
-    setNotes(data);
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    dispatch(listNotes());
+    if (!userInfo) {
+      navigate("/");
+    }
+  }, [
+    dispatch,
+    navigate,
+    userInfo,
+    successCreate,
+    successUpdate,
+    successDelete,
+  ]);
 
   return (
-    <MainScreen title="Welcome back Cheshta Kapoor...">
-      <Link to="createnote">
+    <MainScreen title={`Welcome back ${userInfo.name}...`}>
+      <Link to="/createnote">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
           Create New Note
         </Button>{" "}
       </Link>
-      {notes.map((note) => (
-        <Accordion key={note._id}>
-          <Card style={{ margin: 10 }}>
-            <Accordion.Item eventKey="0">
-              <Card.Header style={{ display: "flex" }}>
-                <span
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    flex: 1,
-                    cursor: "pointer",
-                    alignSelf: "center",
-                    fontSize: 18,
-                  }}
-                >
-                  <Accordion.Header>{note.title}</Accordion.Header>
-                </span>
-                <div>
-                  <Button href={`/notes/${note._id}`}>Edit</Button>
-                  <Button
-                    variant="danger"
-                    className="mx-2"
-                    onClick={() => deleteHandler(note._id)}
+      {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+      {errorDelete && (
+        <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
+      )}
+      {loading && <Loading />}
+      {loadingDelete && <Loading />}
+      {notes
+        ?.reverse()
+        .filter((filteredNote) =>
+          filteredNote.title.toLowerCase().includes(search.toLowerCase())
+        )
+        .map((note) => (
+          <Accordion key={note._id}>
+            <Card style={{ margin: 10 }}>
+              <Accordion.Item eventKey="0">
+                <Card.Header style={{ display: "flex" }}>
+                  <span
+                    style={{
+                      color: "black",
+                      textDecoration: "none",
+                      flex: 1,
+                      cursor: "pointer",
+                      alignSelf: "center",
+                      fontSize: 18,
+                    }}
                   >
-                    Delete
-                  </Button>
-                </div>
-              </Card.Header>
-              <Accordion.Body>
-                <Card.Body>
-                  <h4>
-                    <Badge variant="success" className="bg-success">
-                      category - {note.category}
-                    </Badge>
-                  </h4>
-                  <blockquote className="blockquote mb-0">
-                    <p>{note.content}</p>
-                    <footer className="blockquote-footer">
-                      Created On - date
-                    </footer>
-                  </blockquote>
-                </Card.Body>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Card>
-        </Accordion>
-      ))}
+                    <Accordion.Header>{note.title}</Accordion.Header>
+                  </span>
+                  <div>
+                    <Button href={`/note/${note._id}`}>Edit</Button>
+                    <Button
+                      variant="danger"
+                      className="mx-2"
+                      onClick={() => deleteHandler(note._id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </Card.Header>
+                <Accordion.Body>
+                  <Card.Body>
+                    <h4>
+                      <Badge variant="success" className="bg-success">
+                        category - {note.category}
+                      </Badge>
+                    </h4>
+                    <blockquote className="blockquote mb-0">
+                      <p>{note.content}</p>
+                      <footer className="blockquote-footer">
+                        Created On{" "}
+                        <cite title="Source Title">
+                          {note.createdAt.substring(0, 10)}
+                        </cite>
+                      </footer>
+                    </blockquote>
+                  </Card.Body>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Card>
+          </Accordion>
+        ))}
     </MainScreen>
   );
 };
