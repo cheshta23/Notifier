@@ -93,7 +93,7 @@ const ProfileScreen = () => {
                   onChange={(e) => setName(e.target.value)}
                 ></Form.Control>
               </Form.Group>
-              <Form.Group controlId="email">
+              <Form.Group controlId="email" style={{ marginTop: "15px" }}>
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control
                   type="email"
@@ -102,7 +102,7 @@ const ProfileScreen = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 ></Form.Control>
               </Form.Group>
-              <Form.Group controlId="password">
+              <Form.Group controlId="password" style={{ marginTop: "15px" }}>
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
@@ -111,7 +111,10 @@ const ProfileScreen = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 ></Form.Control>
               </Form.Group>
-              <Form.Group controlId="confirmPassword">
+              <Form.Group
+                controlId="confirmPassword"
+                style={{ marginTop: "15px" }}
+              >
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
                   type="password"
@@ -123,7 +126,7 @@ const ProfileScreen = () => {
               {picMessage && (
                 <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
               )}
-              <Form.Group controlId="pic">
+              <Form.Group controlId="pic" style={{ marginTop: "15px" }}>
                 <Form.Label>Change Profile Picture</Form.Label>
                 <Form.Control
                   onChange={(e) => postDetails(e.target.files[0])}
@@ -132,9 +135,14 @@ const ProfileScreen = () => {
                   label="Upload Profile Picture"
                   accept="image/png"
                   custom
+                  style={{ height: "40px" }}
                 />
               </Form.Group>
-              <Button type="submit" varient="primary">
+              <Button
+                type="submit"
+                varient="primary"
+                style={{ marginTop: "15px" }}
+              >
                 Update
               </Button>
             </Form>

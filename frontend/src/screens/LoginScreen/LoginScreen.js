@@ -47,7 +47,10 @@ const LoginScreen = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group
+            controlId="formBasicPassword"
+            style={{ marginTop: "20px" }}
+          >
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -57,7 +60,7 @@ const LoginScreen = () => {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" style={{ marginTop: "20px" }}>
             Submit
           </Button>
         </Form>

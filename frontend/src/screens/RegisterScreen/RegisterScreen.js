@@ -87,7 +87,7 @@ const RegisterScreen = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="formBasicEmail" style={{ marginTop: "15px" }}>
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
@@ -97,7 +97,10 @@ const RegisterScreen = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group
+            controlId="formBasicPassword"
+            style={{ marginTop: "15px" }}
+          >
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -107,7 +110,7 @@ const RegisterScreen = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="confirmPassword">
+          <Form.Group controlId="confirmPassword" style={{ marginTop: "15px" }}>
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"
@@ -120,7 +123,7 @@ const RegisterScreen = () => {
           {picMessage && (
             <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
           )}
-          <Form.Group controlId="pic">
+          <Form.Group controlId="pic" style={{ marginTop: "15px" }}>
             <Form.Label>Profile Picture</Form.Label>
             <Form.Control
               onChange={(e) => postDetails(e.target.files[0])}
@@ -129,10 +132,11 @@ const RegisterScreen = () => {
               label="Upload Profile Picture"
               accept="image/png"
               custom
+              style={{ height: "40px" }}
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" style={{ marginTop: "15px" }}>
             Register
           </Button>
         </Form>

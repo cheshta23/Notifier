@@ -52,7 +52,7 @@ const CreateNote = () => {
               />
             </Form.Group>
 
-            <Form.Group controlId="content">
+            <Form.Group controlId="content" style={{ marginTop: "15px" }}>
               <Form.Label>Content</Form.Label>
               <Form.Control
                 as="textarea"
@@ -63,14 +63,14 @@ const CreateNote = () => {
               />
             </Form.Group>
             {content && (
-              <Card>
+              <Card style={{ marginTop: "15px" }}>
                 <Card.Header>Note Preview</Card.Header>
                 <Card.Body>
                   <ReactMarkdown>{content}</ReactMarkdown>
                 </Card.Body>
               </Card>
             )}
-            <Form.Group controlId="content">
+            <Form.Group controlId="content" style={{ marginTop: "15px" }}>
               <Form.Label>Category</Form.Label>
               <Form.Control
                 type="content"
@@ -80,10 +80,19 @@ const CreateNote = () => {
               />
             </Form.Group>
             {loading && <Loading size={50} />}
-            <Button type="submit" variant="primary">
+            <Button
+              type="submit"
+              variant="primary"
+              style={{ marginTop: "15px" }}
+            >
               Create Note
             </Button>
-            <Button className="mx-2" onClick={resetHandler} variant="danger">
+            <Button
+              className="mx-2"
+              onClick={resetHandler}
+              variant="danger"
+              style={{ marginTop: "15px" }}
+            >
               Reset Fields
             </Button>
           </Form>

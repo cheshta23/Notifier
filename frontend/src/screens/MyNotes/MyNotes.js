@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MainScreen from "../../components/MainScreen";
+import "./MyNotes.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 
@@ -64,7 +65,7 @@ const MyNotes = ({ search }) => {
         <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
       )}
       {loading && <Loading />}
-      {loadingDelete && <Loading />}
+      {!loading && loadingDelete && <Loading />}
       {notes
         ?.reverse()
         .filter((filteredNote) =>

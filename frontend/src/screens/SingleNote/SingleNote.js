@@ -64,7 +64,7 @@ function SingleNote() {
   return (
     <MainScreen title="Edit Note">
       <Card>
-        <Card.Header>Edit you Note</Card.Header>
+        <Card.Header>Edit your Note</Card.Header>
         <Card.Body>
           <Form onSubmit={updateHandler}>
             {loadingDelete && <Loading />}
@@ -82,7 +82,7 @@ function SingleNote() {
               />
             </Form.Group>
 
-            <Form.Group controlId="content">
+            <Form.Group controlId="content" style={{ marginTop: "15px" }}>
               <Form.Label>Content</Form.Label>
               <Form.Control
                 as="textarea"
@@ -93,7 +93,7 @@ function SingleNote() {
               />
             </Form.Group>
             {content && (
-              <Card>
+              <Card style={{ marginTop: "15px" }}>
                 <Card.Header>Note Preview</Card.Header>
                 <Card.Body>
                   <ReactMarkdown>{content}</ReactMarkdown>
@@ -101,7 +101,7 @@ function SingleNote() {
               </Card>
             )}
 
-            <Form.Group controlId="content">
+            <Form.Group controlId="content" style={{ marginTop: "15px" }}>
               <Form.Label>Category</Form.Label>
               <Form.Control
                 type="content"
@@ -111,13 +111,18 @@ function SingleNote() {
               />
             </Form.Group>
             {loading && <Loading size={50} />}
-            <Button variant="primary" type="submit">
+            <Button
+              variant="primary"
+              type="submit"
+              style={{ marginTop: "15px" }}
+            >
               Update Note
             </Button>
             <Button
               className="mx-2"
               variant="danger"
               onClick={() => deleteHandler(id)}
+              style={{ marginTop: "15px" }}
             >
               Delete Note
             </Button>

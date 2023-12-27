@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&display=swap");
+
 .main {
   min-height: 93vh;
   display: flex;
@@ -7,7 +9,8 @@
   background-size: cover;
 }
 .title {
-  font-size: 95px;
+  font-size: 80px;
+  font-family: "Acme", sans-serif;
 }
 .subtitle {
   font-size: 25px;
@@ -16,6 +19,7 @@
 .intro-text {
   width: 100%;
   text-align: center;
+  font-family: "Acme", sans-serif;
 }
 .buttonContainer {
   margin-top: 50px;
